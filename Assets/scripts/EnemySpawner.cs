@@ -1,8 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemySpawner : MonoSingleton<EnemySpawner> 
+public class EnemySpawner : MonoBehaviour
 {
+	static EnemySpawner m_instance;
+
+	EnemySpawner()
+	{
+		m_instance = this;
+	}
+
+	public static EnemySpawner Instance
+	{
+		get
+		{
+			return m_instance;
+		}
+	}
 
 	public const int LANES = 5;
 	public enum Colours
@@ -22,11 +36,6 @@ public class EnemySpawner : MonoSingleton<EnemySpawner>
 
 	private int m_spawnLine = 0;
 	private Colours m_maxColour = Colours.GREEN;
-
-	protected override void Init()
-	{
-
-	}
 
 	public SpawnLine GetNextSpawn()
 	{

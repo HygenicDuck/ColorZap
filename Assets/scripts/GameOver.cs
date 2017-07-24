@@ -20,6 +20,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnPlayPressed()
 	{
+		Debug.Log ("OnPlayPressed");
 		SceneManager.LoadScene("main");
 	}
 }
