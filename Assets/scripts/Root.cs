@@ -49,6 +49,15 @@ public class Root : MonoBehaviour
 	public GameObject m_playerPrefab;
 	public Transform m_gamePlayRoot;
 
+	enum GameState
+	{
+		GET_READY,
+		PLAYING
+	}
+
+	GameState m_gameState;
+
+
 	GameSettings m_gameSettings = new GameSettings ();
 	Player m_player;
 	float enemyTimer = 0f;
@@ -98,6 +107,8 @@ public class Root : MonoBehaviour
 		m_player = player.GetComponent<Player>();
 		enemyTimer = 0f;
 		AudioManager.Instance.Initialise();
+		m_gameState = GameState.GET_READY;
+		StartCoroutine (StartGamePlayAfterDelay ());
 	}
 
 	private void CreateHUD()
@@ -108,13 +119,21 @@ public class Root : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0) && !m_ignoreInput)
+		if (m_gameState == GameState.PLAYING) 
 		{
-			Vector3 pos = Input.mousePosition;
-			HandleTouch(pos);
-		}
+			if (Input.GetMouseButtonDown (0) && !m_ignoreInput) {
+				Vector3 pos = Input.mousePosition;
+				HandleTouch (pos);
+			}
 
-		UpdateEnemies();
+			UpdateEnemies ();
+		}
+	}
+
+	IEnumerator StartGamePlayAfterDelay()
+	{
+		yield return new WaitForSeconds (3.0f);
+		m_gameState = GameState.PLAYING;
 	}
 
 	void UpdateEnemies()
