@@ -18,10 +18,11 @@ public class Enemy : MonoBehaviour
 {
 	IntVec2 m_gridPos;
 	EnemyColor m_color = EnemyColor.blue; 
+	Vector3 m_originalScale;
 
 	// Use this for initialization
 	void Start () {
-
+		m_originalScale = transform.localScale;
 	}
 
 	// Update is called once per frame
@@ -88,12 +89,11 @@ public class Enemy : MonoBehaviour
 		SpriteScaler scaler = GetComponent<SpriteScaler>();
 
 		Transform rt = gameObject.GetComponent<Transform>();
-		Vector3 originalScale = rt.localScale;
 
 		scaler.ScaleToAbsolute(Vector3.zero,SHRINK_TIME);
 		yield return new WaitForSeconds(SHRINK_TIME);
 		SetColor(color);
-		scaler.ScaleToAbsolute(originalScale,SHRINK_TIME);
+		scaler.ScaleToAbsolute(m_originalScale,SHRINK_TIME);
 	}
 
 	public EnemyColor GetColor()

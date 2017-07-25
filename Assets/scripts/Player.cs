@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 	const float ROTATION_TIME = 0.2f;
 	Rotation m_rotator;
 	EnemyColor m_color = EnemyColor.purple;
+	Vector3 m_originalScale;
 
 	// Use this for initialization
 	void Start () 
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
 		m_rotator = GetComponent<Rotation>();
 		m_rotator.SetRotation(Quaternion.identity);
 		SetColor(EnemyColor.red);
+		m_originalScale = transform.localScale;
 	}
 
 	public void RotateToLane(int laneNum)
@@ -63,12 +65,11 @@ public class Player : MonoBehaviour
 		SpriteScaler scaler = GetComponent<SpriteScaler>();
 
 		Transform rt = gameObject.GetComponent<Transform>();
-		Vector3 originalScale = rt.localScale;
 
 		scaler.ScaleToAbsolute(Vector3.zero,SHRINK_TIME);
 		yield return new WaitForSeconds(SHRINK_TIME);
 		SetColor(color);
-		scaler.ScaleToAbsolute(originalScale,SHRINK_TIME);
+		scaler.ScaleToAbsolute(m_originalScale,SHRINK_TIME);
 	}
 
 	public EnemyColor GetColor()
