@@ -100,6 +100,7 @@ public class Root : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		PlayerScore.GetInstance ().ResetScore ();
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		GameObject player = Instantiate(m_playerPrefab);
 		player.transform.SetParent(m_gamePlayRoot);

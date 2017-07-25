@@ -59,6 +59,12 @@ public class PlayerScore : FileIO
 		m_scoreMultiplier = 0;
 	}
 
+	public void ResetScore()
+	{
+		m_playerScore = 0;
+		m_scoreMultiplier = 0;
+	}
+
 	private void SaveScore()
 	{
 		if (m_playerScore > m_highScore)
