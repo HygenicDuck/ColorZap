@@ -46,6 +46,7 @@ public class Root : MonoBehaviour
 	[SerializeField] private GameObject m_prefabHUD;
 	[SerializeField] private Transform m_HUDTransform;
 	[SerializeField] private SpriteScaler m_shieldScaler;
+	[SerializeField] private AudioSource m_ambienceSound;
 
 	public GameObject m_playerPrefab;
 	public Transform m_gamePlayRoot;
@@ -138,6 +139,7 @@ public class Root : MonoBehaviour
 		yield return new WaitForSeconds (3.0f);
 		m_gameState = GameState.PLAYING;
 		ShowPlayerSprite(true);
+		m_ambienceSound.volume = 1f;
 		yield return new WaitForSeconds (0.5f);
 		m_shieldScaler.ScaleToAbsolute (new Vector3 (3f, 3f, 1f), 0.8f);
 	}
