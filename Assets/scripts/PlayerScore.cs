@@ -105,7 +105,7 @@ public class PlayerScore : FileIO
 	{
 		Hashtable contentsHashtable = new Hashtable ();
 
-		contentsHashtable.Add(KEY_HIGH_SCORE, m_playerScore);
+		contentsHashtable.Add(KEY_HIGH_SCORE, m_highScore);
 
 		return contentsHashtable;
 	}
