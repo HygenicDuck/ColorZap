@@ -203,5 +203,6 @@ public class EnemyManager : MonoBehaviour
 		GameObject gOb = Instantiate(m_playerDeathExplosionPrefab);
 		gOb.transform.parent = transform;
 		gOb.transform.localPosition = Vector3.zero;
+		Root.Instance.ShowPlayerSprite (false);
 	}
 }

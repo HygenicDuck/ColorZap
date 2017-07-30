@@ -76,4 +76,5 @@ public class Player : MonoBehaviour
 	{
 		return m_color;
 	}
+
 }

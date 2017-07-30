@@ -137,6 +137,7 @@ public class Root : MonoBehaviour
 	{
 		yield return new WaitForSeconds (3.0f);
 		m_gameState = GameState.PLAYING;
+		ShowPlayerSprite(true);
 		yield return new WaitForSeconds (0.5f);
 		m_shieldScaler.ScaleToAbsolute (new Vector3 (3f, 3f, 1f), 0.8f);
 	}
@@ -208,5 +209,10 @@ public class Root : MonoBehaviour
 	{
 		int lane = Random.Range(0, GameSettings.Instance.numberOfLanes);
 		m_player.RotateToLane(lane);
+	}
+
+	public void ShowPlayerSprite(bool show)
+	{
+		m_player.gameObject.SetActive (show);
 	}
 }
