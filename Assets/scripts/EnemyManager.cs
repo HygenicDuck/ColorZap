@@ -127,6 +127,7 @@ public class EnemyManager : MonoBehaviour
 		EnemyColor newPlayerColour = color;
 		Vector3 bulletTarget = Vector3.zero;
 		bool finished = false;
+		bool hitEnemy = false;
 		for(int i=GameSettings.Instance.numberOfRanksPerLane; i>=0 && !finished; i--)
 		{
 			Enemy enemy = EnemyAtPosition(lane,i);
@@ -160,6 +161,7 @@ public class EnemyManager : MonoBehaviour
 					AudioManager.Instance.PlayAudioClip("swapColour");
 
 					bulletTarget = enemy.transform.localPosition;
+					hitEnemy = true;
 				}
 			}
 		}
@@ -169,7 +171,7 @@ public class EnemyManager : MonoBehaviour
 			bulletTarget = GetLanePosOffTheScreen(lane);
 		}
 
-		CreateBullet(lane, bulletTarget);
+		CreateBullet(lane, bulletTarget, hitEnemy);
 
 		return newPlayerColour;
 	}
@@ -185,7 +187,7 @@ public class EnemyManager : MonoBehaviour
 		return pos;
 	}
 
-	void CreateBullet(int lane, Vector3 target)
+	void CreateBullet(int lane, Vector3 target, bool hitEnemy)
 	{
 		GameObject gOb = Instantiate(m_bulletPrefab);
 		gOb.transform.parent = transform;
@@ -196,6 +198,23 @@ public class EnemyManager : MonoBehaviour
 		Lifetimer lt = gOb.GetComponent<Lifetimer>();
 		lt.StartTimer(travelTime);
 		gOb.transform.rotation = Quaternion.Euler(0f,0f,-Enemy.GetLaneAngle(lane));
+		if (hitEnemy) 
+		{
+			StartCoroutine (DoRicochetBullet (lane, target, travelTime));
+		}
+	}
+
+	IEnumerator DoRicochetBullet(int lane, Vector3 target, float travelTime)
+	{
+		yield return new WaitForSeconds (travelTime);
+		GameObject gOb = Instantiate(m_bulletPrefab);
+		gOb.transform.parent = transform;
+		gOb.transform.localPosition = target;
+		MoveSprite mover = gOb.GetComponent<MoveSprite>();
+		mover.MoveTo(Vector3.zero,travelTime,true);
+		Lifetimer lt = gOb.GetComponent<Lifetimer>();
+		lt.StartTimer(travelTime);
+		gOb.transform.rotation = Quaternion.Euler(0f,0f,-Enemy.GetLaneAngle(lane)+180f);
 	}
 
 	public void DoPlayerDeathExplosion()
