@@ -38,7 +38,7 @@ public class GameHUD : MonoBehaviour {
 		int multipier = Mathf.Max(1, PlayerScore.GetInstance().GetCurrentMultiplier());
 		if (multipier > 1)
 		{
-			m_multiplier.text = multipier.ToString();
+			m_multiplier.text = "x"+multipier.ToString();
 			m_multiplier.gameObject.SetActive(true);
 		}
 		else
@@ -52,20 +52,28 @@ public class GameHUD : MonoBehaviour {
 	Vector2 WorldCoordsToUICoords(Vector3 worldPos)
 	{
 		Vector3 screenPos = m_sceneCamera.WorldToScreenPoint (worldPos);
-		Debug.Log ("WorldCoordsToUICoords " + screenPos.x + ", " + screenPos.y);
 
 		return screenPos;
 	}
 
-	public void ShowEnemyShotScore(Vector3 enemyPos)
+	public void ShowEnemyShotScore(Vector3 enemyPos, int scoreInc)
 	{
-		Debug.Log ("screen xdim : " + Screen.width);
-		Debug.Log ("screen ydim : " + Screen.height);
 		Vector3 screenPos = WorldCoordsToUICoords (enemyPos);
 		screenPos -= new Vector3 (Screen.width/2, Screen.height/2, 0f);
 		screenPos *= (m_canvasScaler.referenceResolution.x / Screen.width);
 		GameObject scoreObject = Instantiate (m_scorePrefab, transform.parent);
 		scoreObject.transform.localPosition = screenPos;
+
+		const float fadeTime = 0.5f;
+
+		Scaler scaler = scoreObject.GetComponent<Scaler> ();
+		scaler.ScaleTo (3f, fadeTime, true);
+
+		Visibility vis = scoreObject.GetComponent<Visibility> ();
+		vis.FadeOut (fadeTime*2);
+
+		Text text = scoreObject.GetComponent<Text> ();
+		text.text = scoreInc.ToString ();
 	}
 
 }

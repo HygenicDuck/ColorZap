@@ -144,12 +144,13 @@ public class EnemyManager : MonoBehaviour
 					ParticleSystem ps = gOb.GetComponent<ParticleSystem>();
 					ps.startColor = colors[(int)color];
 
-					GameHUD.GetInstance ().ShowEnemyShotScore (enemy.gameObject.transform.position);
+					int scoreInc = PlayerScore.GetInstance().EnemyKilled();
+
+					GameHUD.GetInstance ().ShowEnemyShotScore (enemy.gameObject.transform.position, scoreInc);
 					enemies.Remove(enemy);
 					Destroy(enemy.gameObject);
 					enemy.transform.SetParent(null);
 
-					PlayerScore.GetInstance().EnemyKilled();
 					AudioManager.Instance.PlayAudioClip("explosion");
 				}
 				else

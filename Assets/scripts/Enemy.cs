@@ -147,8 +147,10 @@ public class Enemy : MonoBehaviour
 		Root.Instance.m_ignoreInput = true;
 
 		EnemyManager.Instance.DoPlayerDeathExplosion();
+		AudioManager.Instance.PlayAudioClip("playerExplode");
 		AudioManager.Instance.PlayAudioClip("gameOver");
 		PlayerScore.GetInstance().PlayerDead();
+		Root.Instance.PlayerIsDead ();
 
 		yield return new WaitForSeconds(3.0f);
 

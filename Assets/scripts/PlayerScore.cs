@@ -43,10 +43,13 @@ public class PlayerScore : FileIO
 
 	// EXTERNAL HANDS
 
-	public void EnemyKilled()
+	public int EnemyKilled()
 	{
 		m_scoreMultiplier += 1;
-		m_playerScore += (ENEMY_KILL_SCORE * m_scoreMultiplier);
+		int inc = ENEMY_KILL_SCORE * m_scoreMultiplier;
+		m_playerScore += inc;
+
+		return inc;
 	}
 
 	public void PlayerDead()

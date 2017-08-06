@@ -54,7 +54,8 @@ public class Root : MonoBehaviour
 	enum GameState
 	{
 		GET_READY,
-		PLAYING
+		PLAYING,
+		PLAYER_IS_DEAD
 	}
 
 	GameState m_gameState;
@@ -216,5 +217,10 @@ public class Root : MonoBehaviour
 	public void ShowPlayerSprite(bool show)
 	{
 		m_player.gameObject.SetActive (show);
+	}
+
+	public void PlayerIsDead()
+	{
+		m_gameState = GameState.PLAYER_IS_DEAD;
 	}
 }
