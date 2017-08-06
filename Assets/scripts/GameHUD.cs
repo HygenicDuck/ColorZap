@@ -8,6 +8,8 @@ public class GameHUD : MonoBehaviour {
 	[SerializeField] private Text m_highScore;
 	[SerializeField] private Text m_multiplier;
 	[SerializeField] private GameObject m_scorePrefab;
+	[SerializeField] private CanvasScaler m_canvasScaler;
+
 	private Camera m_sceneCamera;
 
 	private static GameHUD s_instance = null;
@@ -26,6 +28,7 @@ public class GameHUD : MonoBehaviour {
 	{
 		GameObject cam = GameObject.Find ("Main Camera");
 		m_sceneCamera = cam.GetComponent<Camera> ();
+		m_canvasScaler = GetComponentInParent<CanvasScaler> ();
 	}
 
 	void Update()
@@ -49,15 +52,18 @@ public class GameHUD : MonoBehaviour {
 	Vector2 WorldCoordsToUICoords(Vector3 worldPos)
 	{
 		Vector3 screenPos = m_sceneCamera.WorldToScreenPoint (worldPos);
+		Debug.Log ("WorldCoordsToUICoords " + screenPos.x + ", " + screenPos.y);
 
 		return screenPos;
 	}
 
 	public void ShowEnemyShotScore(Vector3 enemyPos)
 	{
+		Debug.Log ("screen xdim : " + Screen.width);
+		Debug.Log ("screen ydim : " + Screen.height);
 		Vector3 screenPos = WorldCoordsToUICoords (enemyPos);
-		screenPos -= new Vector3 (517f, 260f, 0f);
-		screenPos *= 2f;
+		screenPos -= new Vector3 (Screen.width/2, Screen.height/2, 0f);
+		screenPos *= (m_canvasScaler.referenceResolution.x / Screen.width);
 		GameObject scoreObject = Instantiate (m_scorePrefab, transform.parent);
 		scoreObject.transform.localPosition = screenPos;
 	}
