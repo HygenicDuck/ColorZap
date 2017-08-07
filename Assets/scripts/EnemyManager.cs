@@ -152,6 +152,8 @@ public class EnemyManager : MonoBehaviour
 					enemy.transform.SetParent(null);
 
 					AudioManager.Instance.PlayAudioClip("explosion");
+
+					TutorialManager.Instance.ShowTutorialMessage (TutorialManager.MessageID.SHOOT_SAME_COLOUR_TO_DESTROY);
 				}
 				else
 				{
@@ -163,6 +165,8 @@ public class EnemyManager : MonoBehaviour
 
 					bulletTarget = enemy.transform.localPosition;
 					hitEnemy = true;
+
+					TutorialManager.Instance.ShowTutorialMessage (TutorialManager.MessageID.SHOOT_DIFFERENT_COLOUR_TO_SWAP);
 				}
 			}
 		}

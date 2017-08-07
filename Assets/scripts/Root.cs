@@ -55,6 +55,7 @@ public class Root : MonoBehaviour
 	{
 		GET_READY,
 		PLAYING,
+		PAUSED,
 		PLAYER_IS_DEAD
 	}
 
@@ -120,6 +121,7 @@ public class Root : MonoBehaviour
 	{
 		GameObject go = Instantiate(m_prefabHUD) as GameObject;
 		go.transform.SetParent(m_HUDTransform, false);
+		go.transform.SetSiblingIndex (0);
 	}
 
 	void Update()
@@ -143,6 +145,14 @@ public class Root : MonoBehaviour
 		m_ambienceSound.volume = 1f;
 		yield return new WaitForSeconds (0.5f);
 		m_shieldScaler.ScaleToAbsolute (new Vector3 (3f, 3f, 1f), 0.8f);
+
+		TutorialManager.Instance.ShowTutorialMessage (TutorialManager.MessageID.TAP_LANE_TO_FIRE);
+	}
+
+	public void PauseGame(bool paused)
+	{
+		m_gameState = paused ? GameState.PAUSED : GameState.PLAYING;
+		m_ambienceSound.volume = paused ? 0f : 1f;
 	}
 
 	void UpdateEnemies()
