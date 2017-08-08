@@ -182,7 +182,7 @@ public class Root : MonoBehaviour
 	}
 
 
-	void HandleTouch(Vector3 screenTouchPos)
+	public void HandleTouch(Vector3 screenTouchPos)
 	{
 		// work out which lane was touched
 

@@ -153,7 +153,7 @@ public class EnemyManager : MonoBehaviour
 
 					AudioManager.Instance.PlayAudioClip("explosion");
 
-					TutorialManager.Instance.ShowTutorialMessage (TutorialManager.MessageID.SHOOT_SAME_COLOUR_TO_DESTROY);
+					TutorialManager.Instance.ShowTutorialMessageAfterADelay (1f, TutorialManager.MessageID.SHOOT_SAME_COLOUR_TO_DESTROY);
 				}
 				else
 				{
@@ -166,7 +166,7 @@ public class EnemyManager : MonoBehaviour
 					bulletTarget = enemy.transform.localPosition;
 					hitEnemy = true;
 
-					TutorialManager.Instance.ShowTutorialMessage (TutorialManager.MessageID.SHOOT_DIFFERENT_COLOUR_TO_SWAP);
+					TutorialManager.Instance.ShowTutorialMessageAfterADelay (0.5f, TutorialManager.MessageID.SHOOT_DIFFERENT_COLOUR_TO_SWAP);
 				}
 			}
 		}

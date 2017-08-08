@@ -54,6 +54,17 @@ public class TutorialManager : MonoBehaviour {
 		m_tutorialsAlreadyShown [(int)tutorialID] = true;
 	}
 
+	public void ShowTutorialMessageAfterADelay(float time, MessageID tutorialID)
+	{
+		StartCoroutine(ShowTutorialMessageAfterADelayCoroutine(time, tutorialID));
+	}
+
+	IEnumerator ShowTutorialMessageAfterADelayCoroutine(float time, MessageID tutorialID)
+	{
+		yield return new WaitForSeconds (time);
+		ShowTutorialMessage (tutorialID);
+	}
+
     public void ShowTutorialMessage(MessageID tutorialID)
     {
 //		if (!GameStateClass.Instance.HasTutorialBeenShown (tutorialID)) 
@@ -81,5 +92,11 @@ public class TutorialManager : MonoBehaviour {
 	public void ClearedTutorialMessage()
 	{
 		Root.Instance.PauseGame (false);
+	}
+
+	public void ShootWhereTapped()
+	{
+		Vector3 pos = Input.mousePosition;
+		Root.Instance.HandleTouch (pos);
 	}
 }
