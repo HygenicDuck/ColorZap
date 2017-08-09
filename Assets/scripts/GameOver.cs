@@ -19,10 +19,14 @@ public class GameOver : MonoBehaviour {
 		m_currentScoreText.color = PlayerScore.GetInstance().GetCurrentScore() > PlayerScore.GetInstance().GetHighScore() ? m_winnerColor : m_loserColor;
 
 		m_startButtonVis.SineScale (0.03f, 100000f, 0.4f);
+
+		AudioManager.Instance.PlayAudioClip("gameOverText");
 	}
 
 	public void OnPlayPressed()
 	{
+		AudioManager.Instance.PlayAudioClip ("startButtonPress");
+
 		Debug.Log ("OnPlayPressed");
 		SceneManager.LoadScene("main");
 	}

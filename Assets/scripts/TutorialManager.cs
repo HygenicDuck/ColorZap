@@ -78,6 +78,7 @@ public class TutorialManager : MonoBehaviour {
 //			GameStateClass.Instance.ShownTutorial (tutorialID);
 			TutorialHasBeenShown(tutorialID);
 			Root.Instance.PauseGame (true);
+			AudioManager.Instance.PlayAudioClip ("tutorialMessage");
 		}
     }
 
@@ -91,6 +92,7 @@ public class TutorialManager : MonoBehaviour {
 
 	public void ClearedTutorialMessage()
 	{
+		AudioManager.Instance.PlayAudioClip ("buttonPress");
 		Root.Instance.PauseGame (false);
 	}
 

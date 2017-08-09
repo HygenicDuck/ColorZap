@@ -18,6 +18,9 @@ public class Menu : MonoBehaviour {
 
 	public void StartGame()
 	{
+		Debug.Log ("Press");
+		AudioManager.Instance.PlayAudioClip ("startButtonPress");
+
 		SceneManager.LoadScene("main");
 	}
 }
