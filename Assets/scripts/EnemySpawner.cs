@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 	EnemySpawner()
 	{
 		m_instance = this;
+		m_maxColour = (Colours)m_initialNumColours-1;
 	}
 
 	public static EnemySpawner Instance
@@ -31,11 +32,12 @@ public class EnemySpawner : MonoBehaviour
 		
 	[SerializeField] private SpawnLine[] m_initialLines;
 	[SerializeField] private SpawnTime[] m_spawnTimes;
-	[SerializeField] private int m_lineIntroduceForthColour = 10;
-	[SerializeField] private int m_lineIntroduceFifthColour = 20;
+	[SerializeField] private int m_initialNumColours = 2;
+	[SerializeField] private int[] m_linesIncNumColours = { 5, 10, 20 };
+
 
 	private int m_spawnLine = 0;
-	private Colours m_maxColour = Colours.GREEN;
+	private Colours m_maxColour;
 
 	public SpawnLine GetNextSpawn()
 	{
@@ -64,16 +66,24 @@ public class EnemySpawner : MonoBehaviour
 
 		m_spawnLine++;
 
-
 		// UNLOCK COLOURS
-		if (m_spawnLine >= m_lineIntroduceFifthColour)
+		for (int i = 0; i < m_linesIncNumColours.Length; i++) 
 		{
-			m_maxColour = Colours.PURPLE;
+			if (m_spawnLine == m_linesIncNumColours [i])
+				m_maxColour++;
 		}
-		else if (m_spawnLine >= m_lineIntroduceForthColour)
-		{
-			m_maxColour = Colours.BLUE;
-		}
+
+		Debug.Log ("Max colour = " + m_maxColour + ", spawn time = "+spawnLine.GetTimeToNext());
+
+//		// UNLOCK COLOURS
+//		if (m_spawnLine >= m_lineIntroduceFifthColour)
+//		{
+//			m_maxColour = Colours.PURPLE;
+//		}
+//		else if (m_spawnLine >= m_lineIntroduceForthColour)
+//		{
+//			m_maxColour = Colours.BLUE;
+//		}
 
 		return spawnLine;
 	}
