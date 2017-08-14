@@ -46,12 +46,30 @@ public class TutorialManager : MonoBehaviour {
 
 	bool HasTutorialBeenShown (MessageID tutorialID)
 	{
+		if (GameStateClass.Instance != null)
+		{
+			Debug.Log("TutorialHasBeenShown = "+GameStateClass.Instance.TutorialHasBeenShown+", m_tutorialsAlreadyShown = "+m_tutorialsAlreadyShown[(int)tutorialID]);
+			return GameStateClass.Instance.TutorialHasBeenShown || m_tutorialsAlreadyShown [(int)tutorialID];
+		}
 		return m_tutorialsAlreadyShown [(int)tutorialID];
 	}
 
 	void TutorialHasBeenShown (MessageID tutorialID)
 	{
 		m_tutorialsAlreadyShown [(int)tutorialID] = true;
+		bool allTutorialsShown = true;
+		foreach(bool b in m_tutorialsAlreadyShown)
+		{
+			allTutorialsShown = allTutorialsShown && b;
+		}
+
+		if (allTutorialsShown)
+		{
+			if (GameStateClass.Instance != null)
+			{
+				GameStateClass.Instance.TutorialHasBeenShown = true;
+			}
+		}
 	}
 
 	public void ShowTutorialMessageAfterADelay(float time, MessageID tutorialID)
