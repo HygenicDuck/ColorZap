@@ -7,10 +7,13 @@ public class GameHUD : MonoBehaviour {
 	[SerializeField] private Text m_currentScore;
 	[SerializeField] private Text m_highScore;
 	[SerializeField] private Text m_multiplier;
+	[SerializeField] private Scaler m_multiplierScaler;
+	[SerializeField] private Visibility m_multiplierVisibility;
 	[SerializeField] private GameObject m_scorePrefab;
 	[SerializeField] private CanvasScaler m_canvasScaler;
 
 	private Camera m_sceneCamera;
+	private int m_previousMultiplier;
 
 	private static GameHUD s_instance = null;
 
@@ -29,6 +32,9 @@ public class GameHUD : MonoBehaviour {
 		GameObject cam = GameObject.Find ("Main Camera");
 		m_sceneCamera = cam.GetComponent<Camera> ();
 		m_canvasScaler = GetComponentInParent<CanvasScaler> ();
+		m_multiplierScaler.SetScale (Vector3.one);
+		m_multiplierVisibility.SetAlpha (0f);
+		m_previousMultiplier = 1;
 	}
 
 	void Update()
@@ -36,14 +42,23 @@ public class GameHUD : MonoBehaviour {
 		m_currentScore.text = PlayerScore.GetInstance().GetCurrentScore().ToString();
 
 		int multipier = Mathf.Max(1, PlayerScore.GetInstance().GetCurrentMultiplier());
-		if (multipier > 1)
+		if (m_previousMultiplier != multipier) 
 		{
-			m_multiplier.text = "x"+multipier.ToString();
-			m_multiplier.gameObject.SetActive(true);
-		}
-		else
-		{
-			m_multiplier.gameObject.SetActive(false);
+			m_previousMultiplier = multipier;
+			if (multipier > 1) 
+			{
+				m_multiplier.text = "x" + multipier.ToString ();
+				m_multiplier.gameObject.SetActive (true);
+				m_multiplierScaler.SetScale (Vector3.one);
+				m_multiplierVisibility.SetAlpha (1f);
+			} 
+			else 
+			{
+				const float fadeTime = 0.25f;
+				m_multiplierScaler.ScaleToAbsolute (new Vector3 (4f, 4f), fadeTime, true);
+				m_multiplierVisibility.FadeOut (fadeTime*0.8f);
+				//m_multiplier.gameObject.SetActive(false);
+			}
 		}
 
 		m_highScore.text = PlayerScore.GetInstance().GetHighScore().ToString();
