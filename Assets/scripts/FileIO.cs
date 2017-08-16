@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Utils;
+//using Utils;
 using System.IO;
 
 public abstract class FileIO
@@ -31,7 +31,7 @@ public abstract class FileIO
 	private void ReadFile()
 	{
 		string fileName = GetFileName();
-		Debugger.Assert(!string.IsNullOrEmpty(fileName), "FileIO::ReadFile no filename from derived class");
+		//Debugger.Assert(!string.IsNullOrEmpty(fileName), "FileIO::ReadFile no filename from derived class");
 		if (!string.IsNullOrEmpty(fileName))
 		{
 			string fullpath = Path.Combine(Application.persistentDataPath, GetFileName());
@@ -53,13 +53,13 @@ public abstract class FileIO
 	private void WriteFile()
 	{
 		string fileName = GetFileName();
-		Debugger.Assert(!string.IsNullOrEmpty(fileName), "FileIO::WriteFile no filename from derived class");
+		//Debugger.Assert(!string.IsNullOrEmpty(fileName), "FileIO::WriteFile no filename from derived class");
 		if (!string.IsNullOrEmpty(fileName))
 		{
 			string fullpath = Path.Combine(Application.persistentDataPath, GetFileName());
 
 			Hashtable contentsHastable = CreateHashtableToWrite();
-			Debugger.Assert(contentsHastable != null, "FileIO::WriteFile null hashtable to write");
+			//Debugger.Assert(contentsHastable != null, "FileIO::WriteFile null hashtable to write");
 			if (contentsHastable != null)
 			{
 				string json = JSON.JsonEncode(contentsHastable);
