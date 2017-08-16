@@ -28,6 +28,6 @@ public class GameOver : MonoBehaviour {
 		AudioManager.Instance.PlayAudioClip ("startButtonPress");
 
 		Debug.Log ("OnPlayPressed");
-		SceneManager.LoadScene("main");
+		SceneManager.LoadScene("menu");
 	}
 }
