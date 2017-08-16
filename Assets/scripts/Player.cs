@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
 			SpriteRenderer sr = child.gameObject.GetComponent<SpriteRenderer>();
 
 			EnemyManager.Instance.SetColor(sr,color);
+			Root.Instance.SetGlowColour(color);
 		}
 	}
 

@@ -69,6 +69,31 @@ public class EnemyManager : MonoBehaviour
 		}
 	}
 
+	public Color ProperColourFromEnemyColour(EnemyColor color)
+	{
+		Color c = colors[0];
+		switch(color)
+		{
+		case EnemyColor.blue:
+			c = colors[0];
+			break;
+		case EnemyColor.green:
+			c = colors[1];
+			break;
+		case EnemyColor.purple:
+			c = colors[2];
+			break;
+		case EnemyColor.red:
+			c = colors[3];
+			break;
+		case EnemyColor.yellow:
+			c = colors[4];
+			break;
+		}
+
+		return c;
+	}
+
 	void AddRandomEnemiesOnTopRank(SpawnLine spawnLine)
 	{
 		for(int i=0; i<GameSettings.Instance.numberOfLanes; i++)
@@ -142,7 +167,7 @@ public class EnemyManager : MonoBehaviour
 					pos.z -= 1.0f;
 					gOb.transform.localPosition = pos;
 					ParticleSystem ps = gOb.GetComponent<ParticleSystem>();
-					ps.startColor = colors[(int)color];
+					ps.startColor = ProperColourFromEnemyColour(color);
 
 					int scoreInc = PlayerScore.GetInstance().EnemyKilled();
 

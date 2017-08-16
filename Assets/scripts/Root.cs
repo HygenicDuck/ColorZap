@@ -47,6 +47,7 @@ public class Root : MonoBehaviour
 	[SerializeField] private Transform m_HUDTransform;
 	[SerializeField] private SpriteScaler m_shieldScaler;
 	[SerializeField] private AudioSource m_ambienceSound;
+	[SerializeField] private SpriteRenderer m_glowSprite;
 
 	public GameObject m_playerPrefab;
 	public Transform m_gamePlayRoot;
@@ -232,5 +233,12 @@ public class Root : MonoBehaviour
 	public void PlayerIsDead()
 	{
 		m_gameState = GameState.PLAYER_IS_DEAD;
+	}
+
+	public void SetGlowColour(EnemyColor colour)
+	{
+		Color c = EnemyManager.Instance.ProperColourFromEnemyColour(colour);
+		c.a = 0.4f;
+		m_glowSprite.color = c;
 	}
 }
