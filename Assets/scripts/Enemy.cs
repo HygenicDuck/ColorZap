@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using Facebook.Unity;
 
 
 public enum EnemyColor
@@ -152,11 +153,24 @@ public class Enemy : MonoBehaviour
 		PlayerScore.GetInstance().PlayerDead();
 		Root.Instance.PlayerIsDead ();
 
-		yield return new WaitForSeconds(2.0f);
+        LogGameOverEvent(EnemySpawner.Instance.GetSpawnCount());
+
+        yield return new WaitForSeconds(2.0f);
 
 		Root.Instance.m_ignoreInput = false;
 
 		SceneManager.LoadScene("GameOver");
 	}
+
+    public void LogGameOverEvent(int enemiesSpawned)
+    {
+        var parameters = new Dictionary<string, object>();
+        parameters["EnemiesSpawned"] = enemiesSpawned;
+        FB.LogAppEvent(
+            "GameOver",
+            null,
+            parameters
+        );
+    }
 }
 

@@ -39,6 +39,11 @@ public class EnemySpawner : MonoBehaviour
 	private int m_spawnLine = 0;
 	private Colours m_maxColour;
 
+    public int GetSpawnCount()
+    {
+        return m_spawnLine;
+    }
+
 	public SpawnLine GetNextSpawn()
 	{
 		SpawnLine spawnLine = null;
