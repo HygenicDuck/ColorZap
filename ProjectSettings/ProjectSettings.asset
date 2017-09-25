@@ -217,8 +217,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/Users/Andrew-Win7-2TBDrive/Documents/Unity projects/ColorZap/RainbowBlast.keystore
+  AndroidKeyaliasName: rainbowblast
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
   androidEnableBanner: 1
